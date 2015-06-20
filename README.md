@@ -28,4 +28,4 @@ HTML5 Drag and Drop does not cover these devices.
 
 Copyright (c) 2015 [Loris D'Avanzo](mailto:loris.davanzo@gmail.com)
 
-[MIT License](https://github.com/lordav89/drag-and-drop-HTML5-JavaScript/blob/master/LICENSE)
+[MIT License](https://raw.githubusercontent.com/lordav89/drag-and-drop-HTML5-JavaScript/master/LICENSE)
