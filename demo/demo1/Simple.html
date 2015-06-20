@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Simple Drag&#38;Drop</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style>
+.container {
+	margin: 20px;
+	border: 1px solid #aaaaaa;
+}
+
+#cont1 {
+	margin-left: 0px;
+}
+
+#cont2 {
+	margin-left: 100px;
+}
+
+#draggable_item {
+	background: #E5E5DB;
+	cursor: move;
+	text-align: center;
+}
+
+.container, #draggable_item {
+	float: left;
+	width: 100px;
+	height: 60px;
+}
+
+#draggable_item span {
+	line-height: 4em;
+}
+</style>
+<script>
+
+      //You can change the border styles as you wish
+      var borderOnDrag = "thin dotted #8CB550";
+      var borderOnOver = "thin dashed #8CB550";
+      var borderNoEvents = "1px solid #aaaaaa";//to have the same style after the page is loaded, use this style in the CSS
+
+      var div_to;
+      
+      function setDivTo(dragged)
+      {
+        var from=document.getElementById(dragged).parentNode;
+        div_to = (from.id == "cont1" ? "cont2" : "cont1") ;
+      }
+
+      function setBorderStyle(border)
+      {
+        document.getElementById(div_to).style.border = border;
+      }
+
+      //Drag & Drop functions
+      function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+        setDivTo(ev.target.id);
+        setBorderStyle(borderOnDrag);
+      }
+
+      function allowDrop(ev,item) {
+        ev.preventDefault();
+        if (item.id == div_to)
+          setBorderStyle(borderOnOver);
+      }
+
+      function leaveDrop(item){
+        if (item.id == div_to)
+          setBorderStyle(borderOnDrag);
+      }
+
+      function drop(ev,item) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        item.appendChild(document.getElementById(data));
+      }
+
+      function dragEnd(item)
+      {
+        setBorderStyle(borderNoEvents);
+      }
+
+    </script>
+</head>
+
+<body>
+
+	<div class="container" id="cont1" ondrop="drop(event,this)"
+		ondragover="allowDrop(event,this)" ondragleave="leaveDrop(this)">
+	</div>
+
+	<div class="container" id="cont2" ondrop="drop(event,this)"
+		ondragover="allowDrop(event,this)" ondragleave="leaveDrop(this)">
+		<div draggable="true" ondragstart="drag(event)"
+			ondragend="dragEnd(this)" id="draggable_item" class="draggable_item">
+			<span id="dragable_text"> &#8619; Drag Me &#8620;</span>
+		</div>
+	</div>
+
+</body>
+</html>
