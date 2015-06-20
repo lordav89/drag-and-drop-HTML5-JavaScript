@@ -1,5 +1,5 @@
 # drag-and-drop-HTML5-JavaScript
-Several demos about the Drag and Drop effect which have been entirely made using HTML5 and JavaScript.
+Several demos about the Drag and Drop effect which have been entirely made through HTML5 and JavaScript.
 No additional libraries such as JQuery or Angular.
 
 ## Usage
