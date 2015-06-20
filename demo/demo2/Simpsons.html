@@ -1,1 +1,266 @@
+<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<title>Simpsons</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <style>
 
+      .container
+      {
+        margin:20px;
+        border:1px solid #aaaaaa;
+        width:360px;
+      }
+
+      #cont1{
+        margin-left:0px;
+      }
+      
+      #cont2{
+        background-image: url("img/simpsons/simpsons_transparent.jpeg");
+      }
+
+      .container, .draggable_item, .div_to_drop
+      {
+        float:left; 
+        height:203px;
+      }
+
+      .draggable_item, .div_to_drop
+      {
+        width:90px;
+      }
+
+      .draggable_item
+      {
+        cursor: move;
+      }
+
+
+      #draggable_item1{
+        background-image: url("img/simpsons/simpsons1.jpeg");
+      }
+
+      #draggable_item2{
+        background-image: url("img/simpsons/simpsons2.jpeg");
+      }
+
+      #draggable_item3{
+        background-image: url("img/simpsons/simpsons3.jpeg");
+      }
+
+      #draggable_item4{
+        background-image: url("img/simpsons/simpsons4.jpeg");
+      }
+
+    </style>
+    <script>
+    
+    
+    
+
+      //--------------------------------------------------------------------------------------------------------
+      //--------------------------------------------------------------------------------------------------------
+      //Start - utilities functions
+
+      //Change the border styles here 
+      var borderOnDrag = "thin dotted #8CB550";
+      var borderOnOver = "thin dashed #8CB550";
+      var borderNoEvents = "1px solid #aaaaaa";//to have the same style after the page is loaded, use this style in the CSS
+
+      var div_to;
+      var div_from;
+
+
+      //In this deemo, div from and div to are just used to change the border effect
+      //Note that the div from is the contenitor of the four div in which the dragged element can be dropped
+      function setFromAndTo(dragged)
+      {
+        var from=document.getElementById(dragged).parentNode;
+        div_from = from.id;
+
+        if (div_from.indexOf("small_cont")==0)
+          div_from = "cont2";
+
+        div_to = (div_from == "cont1" ? "cont2" : "cont1") ;
+      }
+
+      function canDrop(id){
+        if (id == div_to)
+          return true;
+
+        if (id.indexOf("small_cont")==0)
+          if(document.getElementById(id).children.length == 0)//check if the small div is empty.
+            return true;
+        return false;
+      }
+
+      //return true if there is AT LEAST one empty small container inside cont2, otherwise it return false
+      function checkAvailableSpace(){
+        var children = document.getElementById('cont2').children;
+
+        for(var i=0; i<children.length;i++)
+          if(children[i].children.length == 0)
+            return true;
+        return false;
+
+      }
+
+      //End - utilities functions      
+      //--------------------------------------------------------------------------------------------------------
+      //--------------------------------------------------------------------------------------------------------
+
+
+      //Start Drag & Drop functions
+      function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+        setFromAndTo(ev.target.id);
+
+        document.getElementById(div_to).style.border = borderOnDrag;
+
+        //if the dragged item is from cont2 and there is space in at least one of the other small container, then even cont2 can be the destination
+        if(ev.target.parentNode.id.indexOf("small_cont")==0 && checkAvailableSpace())
+          document.getElementById(div_from).style.border = borderOnDrag;
+      }
+
+      function allowDrop(ev,item) {
+        ev.preventDefault();
+        var id = item.id;
+        if(id.indexOf("small_cont")==0)
+          id="cont2";
+        if(canDrop(item.id)) 
+          document.getElementById(id).style.border = borderOnOver;
+      }
+
+      function leaveDrop(item){
+        var id = div_to;
+        document.getElementById(id).style.border = borderOnDrag;
+        if(item.id.indexOf("small_cont")==0 && checkAvailableSpace()){
+          id="cont2";
+          document.getElementById(id).style.border = borderOnDrag;
+         }
+        
+      }
+
+      function drop(ev,item) {
+        ev.preventDefault();
+        if(canDrop(item.id))
+        {
+          var data = ev.dataTransfer.getData("text");
+          item.appendChild(document.getElementById(data));
+        }
+      }
+
+      function dragEnd(item)
+      {
+        document.getElementById('cont1').style.border = borderNoEvents;
+        document.getElementById('cont2').style.border = borderNoEvents;
+      }
+
+  	///////////////////////////////////////////////////////////////////////////
+  	////////////////////////////////////////////////////////Configuration Start
+  	///////////////////////////////////////////////////////////////////////////
+
+  	function getElementsStartsWithId(id) {
+  		var children = document.body.getElementsByTagName('div');
+  		var elements = [], child;
+  		for (var i = 0, length = children.length; i < length; i++) {
+  			child = children[i];
+  			if (child.id.substr(0, id.length) == id)
+  				elements.push(child);
+  		}
+  		return elements;
+  	}
+  	
+  	var divContTemplateId = "small_cont";
+  	var divDragTemplateId = "draggable_item";
+
+  	function prepareEnvironment() {
+
+  		var currentDivCont = "";
+  		var currentDivDrag = "";
+
+  		var DraggableDivNumber = getElementsStartsWithId('draggable_item').length;
+
+  		for (var i = 1; i <= DraggableDivNumber; i++) {
+
+  			currentDivCont = divContTemplateId;
+  			currentDivCont += i;
+  			var small_cont = document.getElementById(currentDivCont);
+  			small_cont.addEventListener("drop", function(event) {
+  				drop(event, this);
+  			});
+  			small_cont.addEventListener("dragover", function(event) {
+  				allowDrop(event, this);
+  			});
+  			small_cont.addEventListener("dragleave", function(event) {
+  				leaveDrop(this);
+  			});
+
+  			currentDivDrag = divDragTemplateId;
+  			currentDivDrag += i;
+  			var draggable_item = document.getElementById(currentDivDrag);
+  			draggable_item.draggable = true;
+  			draggable_item.addEventListener("dragstart", function(event) {
+  				drag(event);
+  			});
+  			draggable_item.addEventListener("dragend", function(event) {
+  				dragEnd();
+  			});
+
+  		}
+  		
+  			var small_cont = document.getElementById('cont1');
+			small_cont.addEventListener("drop", function(event) {
+				drop(event, this);
+			});
+			small_cont.addEventListener("dragover", function(event) {
+				allowDrop(event, this);
+			});
+			small_cont.addEventListener("dragleave", function(event) {
+				leaveDrop(this);
+			});
+  		
+
+  	}
+
+  	window.onload = prepareEnvironment;
+</script>
+  </head>
+
+  <body>
+  
+  	<!-- 
+    Draggable items can be moved from cont1 to cont2, inside the cont2 they will be dropped in the one of the four small container.
+
+    Draggable items can be also moved from cont2 to cont1, but cont1 does not contain other containers inside itself (div1 is just a 'warehouse').
+
+    Note the border effect using: 
+    when an item is dragged the border of the div where the item can be dropped is dotted; 
+    and when the item is over the div elements, the border is dragged
+    */
+	-->
+
+
+    <div id="cont1" class="container">
+      <div id="draggable_item3" class="draggable_item">
+      </div>
+      <div id="draggable_item1" class="draggable_item">
+      </div>
+      <div id="draggable_item4" class="draggable_item">
+      </div>
+      <div id="draggable_item2" class="draggable_item">
+      </div>
+    </div>
+
+
+
+    <div id="cont2" class="container">
+      <div id="small_cont1" class="div_to_drop"></div>
+      <div id="small_cont2" class="div_to_drop"></div>
+      <div id="small_cont3" class="div_to_drop"></div>
+      <div id="small_cont4" class="div_to_drop"></div>
+    </div>
+
+  </body>
+</html>
