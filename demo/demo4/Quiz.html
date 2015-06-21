@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>D&amp;D Quiz Demo</title>
+<script type="text/javascript" src="quiz_drag_and_drop.js"></script>
+<style>
+body {
+	font: normal 0.90em 'trebuchet ms', arial, sans-serif;
+	font-weight: bold;
+	text-align: center;
+}
+
+.ans_container, .scored_answer {
+	min-width: 70px;
+	height: 30px;
+	margin: 5px;
+	border: 1px solid #aaaaaa;
+	vertical-align: middle;
+}
+
+.ans_container {
+	float: left;
+	margin-right: -25px;
+}
+
+.scored_answer {
+	display: inline-block;
+	background-color: white;
+}
+
+#body_content {
+	width: 850px;
+	height: 450px;
+	border: 1px dotted #aaaaaa;
+	border-top-left-radius: 40px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 40px;
+	border-bottom-left-radius: 10px;
+}
+
+#answers_container, #question_container {
+	/**width: auto;*/
+	height: auto;
+	margin-right: 30px;
+	margin-bottom: 0px;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+#answers_container {
+	width: 400px;
+	float: right;
+	padding-right: 30px;
+}
+
+#question_container {
+	word-wrap: break-word;
+	background: #E5E5DB;
+	padding: 30px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 5px;
+}
+
+.toDrag { 
+	/**width: auto;*/
+	height: 30px;
+	border: 1px solid #aaaaaa;
+	background: #E5E5DB;
+	color: black;
+	text-align: center;
+	cursor: move;
+	padding-right: 3px;
+	padding-left: 3px;
+}
+
+.toDrag span {
+	line-height: 25px;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.odd {
+	margin-top: 23px
+}
+
+.toDrag, .scored_answer, .ans_container {
+	border-radius: 5px;
+}
+
+legend {
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin-bottom: 18px;
+	font-size: 19.5px;
+	line-height: inherit;
+	color: #000000;
+	border: 0;
+	border-bottom: 1px solid #e5e5e5;
+	color: rgba(57, 227, 215, 1);
+	font-weight: normal;
+	font-size: 12px;
+	text-align: right;
+}
+
+fieldset {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	min-width: 0;
+}
+</style>
+
+</head>
+<body>
+
+	<div id="body_content">
+		<div id="question_container">
+			Imagine there's no heaven. It's easy if you try. No
+			<div id="scored_answer1" class="scored_answer"></div>
+			below us. Above us only sky.<br/>
+			
+			Imagine all the people living for 
+			<div id="scored_answer2" class="scored_answer"></div>. <br/>
+					
+			Imagine there's no countries. It isn't hard to do. Nothing to kill
+			or die for. And no religion too.<br/>
+			
+			<div id="scored_answer3" class="scored_answer"></div>all the
+			people living life in peace.<br/> 
+			
+			You may say I'm a dreamer.
+			But I'm not the only one. I hope someday you'll join us. <br/>
+			
+			And the
+			<div id="scored_answer4" class="scored_answer"></div>will be as
+			one... 
+		</div>
+		<br/>
+		<div id="answers_container">
+			<fieldset>
+				<legend>Move the words into the right box</legend>
+
+				<div id="single_ans_container1" class="ans_container odd">
+					<div id="ans1" class="toDrag">
+						<span>Imagine</span>
+					</div>
+				</div>
+
+				<div id="single_ans_container2" class="ans_container">
+					<div id="ans2" class="toDrag">
+						<span>today</span>
+					</div>
+				</div>
+
+				<div id="single_ans_container3" class="ans_container odd">
+					<div id="ans3" class="toDrag">
+						<span>possessions</span>
+					</div>
+				</div>
+
+				<div id="single_ans_container4" class="ans_container">
+					<div id="ans4" class="toDrag">
+						<span>world</span>
+					</div>
+				</div>
+
+				<div id="single_ans_container5" class="ans_container odd">
+					<div id="ans5" class="toDrag">
+						<span>hell</span>
+					</div>
+				</div>
+
+				<div id="single_ans_container6" class="ans_container">
+					<div id="ans6" class="toDrag">
+						<span>someday</span>
+					</div>
+				</div>
+
+			</fieldset>
+		</div>
+	</div>
+</body>
+</html>
