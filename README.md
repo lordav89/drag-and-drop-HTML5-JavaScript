@@ -3,11 +3,11 @@ Several demos about the Drag and Drop effect which have been entirely made throu
 No additional libraries such as JQuery or Angular.
 
 ## Usage
-Download the demo that you can find more useful. You don't need to install anything (is just HTML5 and JavaScript code). 
-They can run from the client side on each one of the most common browsers.
+Just download the demo you wish. You don't need to install anything (is just HTML5 and JavaScript code). 
+They run from the client side, a common browser is the only needed.
 
 ## Customization
-Most of the demos require only to change the style sheet of the HTML elements as you want and then
+Most of the demos requires only to change the style sheet of the HTML elements and then
 you just need to add the draggable element in the HTML source page as described in to this [web site] (http://155.94.246.111/DragAndDrop/).
 Above all, take care of the name convention of the draggable items, which are basically div elements.
 If you have JavaScript skills, you can also try to have a look to the code and then change the behavior of the Drag and Drop effects
