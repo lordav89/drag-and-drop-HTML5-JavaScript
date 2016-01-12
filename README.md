@@ -8,7 +8,7 @@ They run from the client side, a common browser is the only needed.
 
 ## Customization
 Most of the demos requires only to change the style sheet of the HTML elements and then
-you just need to add the draggable element in the HTML source page as described in to this [web site] (http://155.94.246.111/DragAndDrop/).
+you just need to add the draggable element in the HTML source page as described in to this [web site] (http://lorisdavanzo.com/DragAndDrop/).
 Above all, take care of the name convention of the draggable items, which are basically div elements.
 If you have JavaScript skills, you can also try to have a look to the code and then change the behavior of the Drag and Drop effects
 as you need in order to achieve your result.
